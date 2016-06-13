@@ -1,0 +1,21 @@
+$url:"../font/";
+$img:'../image/';
+$color:#08c;
+$num:12;
+$large:1441px;
+$medium:1068px;
+$small:741px;
+$rule:(large:$large,medium:$medium,small:$small);
+$item:(
+  logo:20px,
+  mac:31px,
+  ipad:30px,
+  iphone:48px,
+  watch:44px,
+  tv:20px,
+  music:40px,
+  support:57px,
+  sousu:20px,
+  gwc:18px
+);
+$list:iphone_6s,apple_tv,macbook,accessories;

@@ -1,0 +1,40 @@
+@import "vars";
+@each $rules in map-keys($rule){
+  @for $i from 1 through $num{
+    .#{$rules}-#{$i}{
+      @extend %grid;
+    }
+  }
+}
+@for $i from 1 through $num{
+  .push-#{$i}{
+    right:percentage($i/12)
+  }
+}
+@for $i from 1 through $num{
+  .pull-#{$i}{
+    left:percentage($i/12)
+  }
+}
+@each $rules in map-keys($rule){
+  @media screen and (max-width:map-get($rule,$rules)){
+    @for $i from 1 through $num{
+      .#{$rules}-#{$i}{
+        width:percentage($i/12);
+      }
+    }
+  }
+}
+@for $i from 5 through 10{
+  .with-#{$i}-col .col{
+    @extend %grid;
+    width:percentage(1/$i);
+  }
+}
+@media screen and (max-width:map-get($rule,'small')) {
+  @for $i from 5 through 10{
+    .with-#{$i}-col .col{
+      width:100%;
+    }
+  }
+}

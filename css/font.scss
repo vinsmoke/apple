@@ -1,0 +1,18 @@
+@import "vars";
+@mixin font ($fontname,$fonturl) {
+  @font-face{
+    font-family: $fontname;
+    src:
+    local($fonturl),
+    url($url+$fonturl+'.woff') format('woff'),
+    url($url+$fonturl+'.eot') format('eot'),
+    url($url+$fonturl+'.ttf') format('ttf'),
+    url($url+$fonturl+'.svg') format('svg');
+  }
+}
+@include font('apple-text','myriad-set-pro_text');
+@include font('apple-bold','myriad-set-pro_semibold');
+@include font('apple-thin','myriad-set-pro_thin');
+@include font('apple-extrathin','myriad-set-pro_extrathin');
+@include font('icon-font-text','appleicons_text');
+@include font('icon-font-thin','appleicons_thin');

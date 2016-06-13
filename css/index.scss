@@ -1,0 +1,1010 @@
+@import "vars";
+@import "font";
+@import "reset";
+@import "gridsystem";
+
+%grid{
+  float: left;
+  position: relative;
+}
+%clear{
+  display: block;
+  content: '';
+  clear:both;
+}
+%ss{
+  width:1px;
+  height:1px;
+  position: absolute;
+  top:0;
+  left:0;
+  overflow: hidden;
+}
+%center{
+  margin:auto;
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom: 0;
+}
+.icon-font-text::after{
+  font-family: 'icon-font-text';
+  display: inline-block;
+}
+.icon-font-thin::after{
+  font-family: 'icon-font-thin';
+  display: inline-block;
+}
+@mixin small {
+  @media screen and (max-width: $small){
+    @content;
+  }
+}
+#globalnav{
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  max-height: 44px;
+  height:48px;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 9999;
+  overflow: hidden;
+  .gn-content{
+    max-width: 980px;
+    margin:0 auto;
+    padding:0 22px;
+    position: relative;
+  }
+}
+.gn-item a span.ac-gn-link-text{
+    @extend %ss;
+}
+.gn-item a span.gn-search-placeholder{
+    display: none;
+}
+#globalnav .gn-list{
+  margin:0 -10px;
+  height:44px;
+  text-align: justify;
+  &::after{
+    @extend %clear;
+    display: inline-block;
+    width:100%;
+  }
+  .gn-item{
+    position: relative;
+    display: inline-block;
+  }
+}
+#globalnav {
+  .gn-link{
+    height:44px;
+    display: block;
+    padding:0 10px;
+  }
+}
+@each $name in map-keys($item){
+  #globalnav .gn-list .gn-#{$name} a{
+    width:map-get($item,$name);
+    background: url($img+$name+'.svg') no-repeat center center;
+    transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    &:hover{
+      opacity: 0.65;
+    }
+  }
+}
+#globalnav .gn-header{
+  height:48px;
+  position: relative;
+  display: none;
+  .gn-item{
+    display: inline-block;
+    height:48px;
+  }
+  .gn-menuicon{
+    width:48px;
+    position: absolute;
+    left:0;
+    top:0;
+    label{
+      position: absolute;
+      width:48px;
+      height:48px;
+      top:0;
+      left:0;
+      cursor: pointer;
+      &:hover span{
+        opacity: 0.65;
+      }
+      .gn-bread{
+        position: absolute;
+        top:0;
+        left:0;
+        width:48px;
+        height:48px;
+        transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),transform 0.25s 0.2s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+        transform: rotate(0);
+      }
+    }
+  }
+  .gn-logo{
+     @extend %center;
+      width:48px;
+      text-align: center;
+    .gn-link{
+      background: url($img+"logo.svg") no-repeat center center;
+      height:48px;
+      transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+      &:hover{
+        opacity: 0.65;
+      }
+    }
+  }
+  .gn-gwc{
+    position: absolute;
+    top:0;
+    right:0;
+    width:50px;
+    text-align: center;
+    .gn-link{
+      background: url($img+"gwc.svg") no-repeat center center;
+      height:48px;
+      transition: opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+      &:hover{
+        opacity: 0.65;
+      }
+    }
+  }
+}
+.gn-menuicon .gn-bread {
+  .gn-bread-crust{
+    display: block;
+    width:17px;
+    height:1px;
+    background: #fff;
+    position: absolute;
+    left:16px;
+    transition: transform 0.2s 0.2s ease;
+  }
+  .crust-top{
+    top:20px;
+  }
+  .crust-bottom{
+    bottom:20px;
+  }
+}
+#globalnav{
+  @include small {
+    max-height:none;
+    transition:background 0.35s linear,height 0.35s ease-in .2s;
+  }
+}
+#globalnav .gn-content{
+  @include small {
+    padding:0;
+    width:100%;
+    height:100%;
+  }
+}
+#globalnav .gn-list{
+  @include small {
+    position: absolute;
+    top:48px;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:0;
+    padding:0 48px;
+    height:auto;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .gn-item-menu{
+    @include small {
+      width:100%;
+      height:47px;
+      display: block;
+      border-bottom: 1px solid #333;
+      opacity:0;
+      transform: scale(1.1) translateY(-24px);
+      transition: opacity 0.35s ease-out, transform .35s ease-out;
+      a{
+        width:auto;
+        height:47px;
+        background-position: left center;
+        padding:0;
+      }
+    }
+  }
+  .gn-mac{
+    @include small {
+      margin-top:12px;
+    }
+  }
+  .gn-logo{
+    @include small {
+       display: none;
+    }
+  }
+  .gn-gwc{
+    @include small {
+      display: none;
+    }
+  }
+}
+#globalnav .gn-list{
+  @for $i from 2 through 9{
+    .gn-item-menu:nth-child(#{$i}){
+      @include small {
+          transition-delay: (10-$i)*50ms,(10-$i)*50ms;
+      }
+    }
+  }
+}
+@each $i in map-keys($item){
+  #globalnav .gn-list .gn-#{$i} a{
+    @include small {
+      background-image: url($img+$i+'_small.svg');
+    }
+  }
+}
+#globalnav .gn-header .gn-logo .gn-link{
+  @include small {
+    background-image: url($img+'logo_small.svg')
+  }
+}
+#globalnav .gn-header .gn-gwc .gn-link{
+  @include small {
+    background-image: url($img+'gwc_small.svg');
+    transition: transform 0.55s ease-out 0.25s,opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+}
+#globalnav .gn-header{
+  @include small {
+    display: block;
+  }
+}
+
+
+#gn-menuicon-label{
+  display: none;
+}
+#gn-menuicon-label:checked + #globalnav{
+  height:100%;
+  background-color: black;
+}
+#gn-menuicon-label:checked + #globalnav .gn-list .gn-item-menu{
+  transform: none;
+  opacity:1;
+}
+#gn-menuicon-label:checked +#globalnav .gn-list{
+  @for $i from 2 through 9{
+    .gn-item-menu:nth-child(#{$i}){
+      transition-delay: 200+$i*50ms,200+$i*50ms;
+    }
+  }
+}
+#gn-menuicon-label:checked + #globalnav .gn-header .gn-bread:nth-child(1){
+  transform: rotate(45deg);
+  .crust-top{
+    transform: translateY(4px);
+  }
+}
+#gn-menuicon-label:checked + #globalnav .gn-header .gn-bread:nth-child(2){
+  transform: rotate(135deg);
+  .crust-bottom{
+    transform: translateY(-4px);
+  }
+}
+#gn-menuicon-label:checked + #globalnav .gn-header .gn-gwc .gn-link{
+  transform: translateX(200%);
+}
+
+/*banner*/
+
+.hero-gallery{
+  height:78%;
+  min-height: 650px;
+  margin-top: -2px;
+  position: relative;
+  .dotnav{
+    width:100%;
+    position: absolute;
+    left:0;
+    bottom:2%;
+    text-align: center;
+    z-index: 100;
+    ul{
+      display: inline-block;
+      li{
+        margin:0 10px;
+        width:8px;
+        height:8px;
+        float: left;
+        position: relative;
+        a{
+          display: block;
+          width:8px;
+          height:8px;
+          border-radius: 50%;
+          overflow: hidden;
+          line-height: 200px;
+          background-color: #999;
+        }
+      }
+      li.dotnav-item-current{
+        a{
+          background-color: transparent;
+          border:1px solid $color;
+          position: absolute;
+          top:-1px;
+          left:-1px;
+        }
+      }
+    }
+  }
+  .paddlenav{
+    button{
+      width:67px;
+      height:128px;
+      position: absolute;
+      display: block;
+      font-size: 72px;
+      color:#666;
+      font-weight: 200;
+      text-align: center;
+      border:none;
+      padding:0;
+      margin:0;
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+      margin-top: -64px;
+      top:50%;
+      opacity:0;
+      z-index: 100;
+      -webkit-transition: 250ms opacity linear, 250ms color linear;
+      transition: 250ms opacity linear, 250ms color linear;
+      &:hover{
+        opacity:1;
+      }
+    }
+    .gallery-prev button{
+      left:18px;
+      &::after{
+        content:"";
+      }
+
+    }
+    .gallery-next button{
+      right:18px;
+      &::after{
+        content:"";
+      }
+    }
+  }
+  .gallery-banner{
+    position: absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    .gallery-family{
+      width:100%;
+      height:100%;
+      position: relative;
+      overflow: hidden;
+    }
+  }
+}
+.hero-gallery:hover .paddlenav button{
+  opacity:0.7;
+}
+.hero-content{
+  width:100%;
+  height:100%;
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 6;
+  .backing-link{
+    width: 100%;
+    height:100%;
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 3;
+  }
+}
+.iphone_6s .copy{
+  width:340px;
+  height:100%;
+  position: absolute;
+  top:0;
+  left:50%;
+  margin-left:28px;
+  z-index: 50;
+  .copy-inner{
+    width:100%;
+    position: absolute;
+    top:50%;
+    left:0;
+    margin-top:-92px;
+    .product-pro{
+      height:39px;
+      width:174px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 16px;
+      background:url($img+'iphone_se_medium.png');
+    }
+    .product-text{
+      font-size: 32px;
+      line-height: 1.125;
+      font-weight: 300;
+      font-family: 'apple-thin';
+      margin-bottom:16px;
+      text-align: center;
+    }
+    .links{
+      font-size: 24px;
+      line-height: 1.3375;
+      font-weight: 500;
+      text-align: center;
+      font-family: 'apple-thin';
+      li{
+        display: inline-block;
+        margin-left:0.35em;
+        margin-right:0.35em;
+        margin-bottom:0.2em;
+        a{
+          display: inline-block;
+          span{
+            display: inline-block;
+            color:$color;
+          }
+        }
+        .icon-chev::after{
+            content:'';
+            padding-left:0.3em;
+        }
+        .icon-play::after{
+          content:'';
+          padding-left:0.3em;
+        }
+      }
+    }
+  }
+}
+.iphone_6s .hero-wrapper{
+  width:100%;
+  height:100%;
+  position: absolute;
+  top:0;
+  left:0;
+  .hero-img{
+    position: absolute;
+    left:0;
+    top:0;
+    width:50%;
+    height:50%;
+    margin:0;
+    .hero-img-inner{
+      width:580px;
+      height:517px;
+      background: url($img+'iphone_se_medium.jpg') no-repeat center center;
+      position: absolute;
+      bottom:-290px;
+      right:-70px;
+    }
+  }
+}
+.ipad_pro .copy{
+  width:800px;
+  height:63%;
+  position: absolute;
+  top:0;
+  left:50%;
+  .copy-inner{
+    width:100%;
+    position: absolute;
+    top:50%;
+    left:-50%;
+    margin-top:-103px;
+    .product-pro{
+      height:37px;
+      width:139px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 16px;
+      background:url($img+'ipad_pro_medium.png');
+    }
+    .product-text{
+      font-size: 32px;
+      line-height: 1.125;
+      font-weight: 300;
+      font-family: 'apple-thin';
+      margin-bottom:16px;
+      text-align: center;
+    }
+  }
+}
+.ipad_pro .hero-wrapper{
+  width:100%;
+  height:100%;
+  position: absolute;
+  top:0;
+  left:0;
+  .hero-img{
+    position: absolute;
+    left:0;
+    top:0;
+    width:50%;
+    height:50%;
+    margin:0;
+    .hero-img-inner{
+      width:1310px;
+      height:541px;
+      background: url($img+'ipad_pro_family_medium.jpg') no-repeat center center;
+      position: absolute;
+      bottom: -435px;
+      right: -707px;
+    }
+  }
+}
+.watch .copy{
+  width:800px;
+  height:63%;
+  position: absolute;
+  top:0;
+  left:50%;
+  .copy-inner{
+    width:100%;
+    position: absolute;
+    top:50%;
+    left:-50%;
+    margin-top:-81px;
+    .product-pro{
+      height:39px;
+      width:184px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 16px;
+      background:url($img+'watch_medium.png');
+    }
+    .product-text{
+      font-size: 32px;
+      line-height: 1.125;
+      font-weight: 300;
+      font-family: 'apple-thin';
+      margin-bottom:16px;
+      text-align: center;
+    }
+  }
+}
+.watch .hero-wrapper{
+  width:100%;
+  height:100%;
+  position: absolute;
+  top:0;
+  left:0;
+  .hero-img{
+    position: absolute;
+    left:0;
+    top:0;
+    width:50%;
+    height:50%;
+    margin:0;
+    .hero-img-inner{
+      width:671px;
+      height:341px;
+      background: url($img+'apple_watch_trio_medium.jpg') no-repeat center center;
+      position: absolute;
+      bottom: -240px;
+      right: -336px;
+    }
+  }
+}
+
+.hero-content .copy .copy-inner .links li:hover a{
+  color:black;
+}
+.hero-content .copy .copy-inner .links li:hover span{
+  color:black;
+}
+@media screen and( max-width : $small) {
+ .hero-gallery{
+   height:50%;
+   min-height: 391px;
+   .dotnav{
+     bottom:4%;
+   }
+ }
+ .gallery-family.iphone_6s .hero-wrapper .hero-img .hero-img-inner{
+   background: url($img+'iphone_se_small.jpg') no-repeat;
+   width:200px;
+   height:178px;
+   bottom:-94px;
+   right:11px;
+ }
+ .iphone_6s .hero-content .copy{
+   width:230px;
+   margin-left: 0px;
+ }
+ .iphone_6s .hero-content .copy .copy-inner .product-pro{
+   height:31px;
+   width:138px;
+   background:url($img+'iphone_se_small.png') no-repeat;
+   margin-bottom:10px;
+ }
+ .iphone_6s .hero-content .copy .copy-inner .product-text{
+   font-size: 20px;
+  line-height: 1.3375;
+  margin-bottom: 0.25em;
+ }
+ .iphone_6s .hero-content .copy .copy-inner .links{
+   font-size: 20px;
+   line-height: 1.4;
+ }
+ .iphone_6s .hero-content .copy .copy-inner .links li{
+   margin-bottom: 0;
+ }
+ .iphone_6s .hero-content .copy .copy-inner{
+   left:-25px;
+   margin-top: -64px;
+ }
+}
+@media screen and (max-width:$small) {
+  .ipad_pro{
+    .hero-wrapper .hero-img .hero-img-inner{
+      width:440px;
+      height:182px;
+      background:url($img+'ipad_pro_family_small.jpg');
+      bottom: -184px;
+      right: -242px;
+    }
+    .copy .copy-inner{
+      margin-top: -10px;
+      .product-text{
+        font-size: 20px;
+        line-height: 1.3375;
+        font-weight: 300;
+      }
+      .product-pro{
+        width:108px;
+        height:29px;
+        background-image: url($img+'ipad_pro_small.png');
+      }
+    }
+  }
+}
+@media screen and (max-width:$small) {
+  .watch{
+    .hero-wrapper .hero-img .hero-img-inner{
+      width:263px;
+      height:134px;
+      background-image: url($img+'apple_watch_trio_small.jpg');
+      bottom: -126px;
+      right: -132px;
+    }
+    .copy .copy-inner{
+      margin-top: -19px;
+      .product-text{
+        font-size: 20px;
+        line-height: 1.3375;
+        font-weight: 300;
+      }
+      .product-pro{
+        width:145px;
+        height:31px;
+        background-image: url($img+'watch_small.png');
+      }
+    }
+  }
+}
+/*meida*/
+.media{
+  max-width: 2560px;
+  margin-top: 1300px;
+  &::after{
+    @extend %clear;
+  }
+  li{
+    min-height:200px;
+    float: left;
+    box-sizing: border-box;
+    position: relative;
+    span{
+      @extend %ss;
+    }
+  }
+}
+@media screen and (max-width:$small) {
+  .media{
+    margin-top: 780px;
+  }
+}
+.media{
+  li{
+    a{
+      display:block;
+      height:200px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 360px 200px;
+      border-right:2px solid #fff;
+    }
+  }
+  @for $i from 1 to 5{
+    li:nth-child(#{$i}) a{
+      background-image:url($img+nth($list, $i)+'_large.jpg');
+    }
+  }
+}
+@media only screen and (max-width:1068px) {
+  .media{
+    li{
+      a{
+        display:block;
+        height:200px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 640px 200px;
+        border:none;
+      }
+    }
+    li:nth-child(1) a{
+      background-image: url($img+'iphone_6s_medium.jpg');
+      border-bottom:2px solid #fff;
+      border-right:2px solid #fff;
+    }
+    li:nth-child(2) a{
+      background-image: url($img+'apple_tv_medium.jpg');
+      border-bottom:2px solid #fff;
+    }
+    li:nth-child(3) a{
+      background-image: url($img+'macbook_medium.jpg');
+      border-right:2px solid #fff;
+    }
+    li:nth-child(4) a{
+      background-image: url($img+'accessories_medium.jpg');
+    }
+  }
+}
+@media only screen and (max-width:735px) {
+  .media{
+    li{
+      min-width: 380px;
+      a{
+        display:block;
+        height:200px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 736px 200px;
+        border:none;
+      }
+    }
+    li:nth-child(1) a{
+      background-image: url($img+'iphone_6s_small.jpg');
+      border-bottom:2px solid #fff;
+      border-right:none;
+    }
+    li:nth-child(2) a{
+      background-image: url($img+'apple_tv_small.jpg');
+      border-bottom:2px solid #fff;
+    }
+    li:nth-child(3) a{
+      background-image: url($img+'macbook_small.jpg');
+      border-bottom:2px solid #fff;
+      border-right:none;
+    }
+    li:nth-child(4) a{
+      background-image: url($img+'accessories_small.jpg');
+    }
+  }
+}
+
+/*redcross_banner*/
+.redcross_banner{
+  text-align: center;
+  .center{
+    display: inline-block;
+    padding:20px 0;
+    border-bottom:1px solid #d6d6d6;
+    position: relative;
+    .redcross_logo{
+      width:179px;
+      height:44px;
+      background: url($img+'redcross_banner_large.jpg') no-repeat;
+      background-size: 179px 44px;
+      position: absolute;
+      top:13px;
+      span{
+        @extend %ss;
+      }
+    }
+    .redcross_copy{
+      margin-left: 202px;
+      display: inline-block;
+      border-left:1px solid #d6d6d6;
+      padding-left:22px;
+      font-size: 18px;
+      a{
+        margin-left:4px;
+        &:hover{
+          text-decoration: underline;
+        }
+        &::after{
+          content:'';
+          padding-left:4px;
+        }
+      }
+    }
+  }
+    .exchange{
+      padding:20px 0;
+      text-align: center;
+      font-size: 18px;
+      a::after{
+        content:"";
+        padding-left:4px;
+      }
+      a:hover{
+        text-decoration: underline;
+      }
+    }
+  }
+@media screen and (max-width:map-get($rule,'small')){
+  .redcross_banner{
+    .center{
+      .redcross_logo{
+        position: relative;
+        top:auto;
+        margin:0 auto;
+        margin-bottom:4px;
+      }
+      .redcross_copy{
+        margin-left:0;
+        border-left:0;
+        padding-left:0;
+        display: block;
+        a{
+          display: block;
+          margin-left:0;
+        }
+      }
+    }
+  }
+}
+/*footer*/
+#footer{
+  background-color: #f2f2f2;
+  .footer-inner{
+    max-width: 980px;
+    margin:0 auto;
+    padding:0 22px;
+  }
+}
+#footer nav{
+  padding-top: 32px;
+  &::after{
+    @extend %clear;
+  }
+}
+nav .section h3{
+  font-size: 12px;
+  line-height: 1.7;
+  font-weight: 600;
+}
+#footer .section{
+  padding-top:20px;
+  ul li{
+    a{
+      display: block;
+      color:#666;
+    }
+    &:hover{
+      color:#333;
+      text-decoration: underline;
+    }
+  }
+}
+@media screen and(max-width:map-get($rule,'small')) {
+  nav .section ul{
+    display: none;
+  }
+  #footer .section{
+    padding-top:0;
+    border-bottom: 1px solid #e3e3e3;
+  }
+  nav .section h3{
+    cursor: pointer;
+    position: relative;
+    font-size: 14px;
+    line-height: 2.8;
+    font-weight: 400;
+    &::after{
+      content:"+";
+      position: absolute;
+      top:0;
+      bottom:0;
+      right:20px;
+      transition: all .3s ease;
+    }
+  }
+  #footer .section ul li{
+    padding:0 16px;
+    height:30px;
+    line-height: 30px;
+  }
+}
+
+.footer-inner input{
+  display: none;
+}
+@media screen and (max-width:map-get($rule,'small')) {
+  .footer-inner input:checked{
+    &+.section ul{
+      display: block;
+    }
+    &+.section h3::after{
+      transform: rotate(45deg);
+    }
+  }
+}
+#footer .gf-footer{
+  padding:20px 0 40px;
+  color:#999;
+  &::after{
+    @extend %clear;
+  }
+  .gf-footer-shop{
+    margin-bottom:6px;
+    padding-bottom:5px;
+    border-bottom: 1px solid #e3e3e3;
+    a:hover{
+      color:#333;
+      text-decoration: underline;
+    }
+  }
+  .gf-footer-locale{
+    float: right;
+    .locale-link{
+        color:#333;
+        &:hover{
+          text-decoration: underline;
+        }
+      span{
+        display:block;
+        width:16px;
+        height:16px;
+        background: url($img+'16.png') no-repeat center center;
+        float: left;
+        margin-right:5px;
+      }
+    }
+  }
+  .gf-footer-legal{
+    .legal-copyright,.legal-links{
+      float: left;
+      margin-right: 26px;
+    }
+  }
+  .gf-footer-legal .legal-links{
+    .legal-link{
+      padding-right:12px;
+      margin-right: 10px;
+      border-right:1px solid #d6d6d6;
+      color: #666;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    .legal-link:nth-child(5){
+      border-right:none;
+    }
+  }
+}
